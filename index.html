@@ -188,7 +188,7 @@ p:last-child{ margin-bottom:0; }
 .detail p{ margin:0; font-size:16px; color:var(--ink-2); }
 
 /* screenshots */
-.grid{ display:grid; gap:16px; grid-template-columns:repeat(3,1fr); }
+.grid{ display:grid; gap:18px; grid-template-columns:repeat(2,1fr); }
 .grid figure{ margin:0; }
 .grid button{
   padding:0; border:1px solid var(--rule); background:var(--paper-2); cursor:zoom-in; display:block;
@@ -251,7 +251,6 @@ footer a:hover{ color:var(--red); text-decoration:underline; }
 
 @media (max-width:900px){
   .pillars{ grid-template-columns:1fr; }
-  .grid{ grid-template-columns:repeat(2,1fr); }
 }
 @media (max-width:620px){
   body{ font-size:16px; }
@@ -316,7 +315,7 @@ footer a:hover{ color:var(--red); text-decoration:underline; }
   <section id="game" class="shell">
     <h2><span class="n">02</span> The game</h2>
     <p class="lede">Build a company from the Wehrmacht or the Red Army, commit it to the front, and break the enemy headquarters — or out-hold them on victory points when the clock runs out.</p>
-    <p>SPEARHEAD strips away unit micromanagement. You never drag a selection box across a squad. What you decide is <em>what to field, where to send it, and when</em> — and that is the whole game. Matches run five to ten minutes, so a decision is rewarded or punished quickly.</p>
+    <p>SPEARHEAD strips away unit micromanagement. You command squads and vehicles, not individual soldiers. What you decide is <em>what to field, where to send it, and when</em> — and that is the whole game. Matches run ten to fifteen minutes, so a decision is rewarded or punished quickly.</p>
 
     <ul class="pillars">
       <li>
@@ -379,20 +378,6 @@ footer a:hover{ color:var(--red); text-decoration:underline; }
         </button>
         <figcaption>Infantry under fire</figcaption>
       </figure>
-      <figure>
-        <button type="button" data-full="assets/shots/shot_2.jpg" aria-label="Enlarge screenshot: Deck and order of battle">
-          <img src="assets/shots/thumb_2.jpg" width="760" height="428" loading="lazy" decoding="async"
-               alt="Deck screen showing a Tiger I loadout card with its historical weapon, armor and mobility data.">
-        </button>
-        <figcaption>Deck · order of battle</figcaption>
-      </figure>
-      <figure>
-        <button type="button" data-full="assets/shots/shot_1.jpg" aria-label="Enlarge screenshot: Battle setup">
-          <img src="assets/shots/thumb_1.jpg" width="760" height="428" loading="lazy" decoding="async"
-               alt="Battle setup screen with the German and Soviet sides, deck slots, ace seats and a map preview.">
-        </button>
-        <figcaption>Battle setup</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -405,7 +390,7 @@ footer a:hover{ color:var(--red); text-decoration:underline; }
       <dt>Steam Next Fest</dt><dd>October 2026 (registered)</dd>
       <dt>Genre</dt><dd>RTS · Real-time tactics · World War II, Eastern Front</dd>
       <dt>Players</dt><dd>Single-player vs AI · Online 1v1 PvP · Spectating and replays</dd>
-      <dt>Match length</dt><dd>5–10 minutes</dd>
+      <dt>Match length</dt><dd>10–15 minutes</dd>
       <dt>Languages</dt><dd>English, Korean — interface, full audio and subtitles</dd>
       <dt>Engine</dt><dd>Unity 6 · URP</dd>
       <dt>Steam AppID</dt><dd>5183830</dd>

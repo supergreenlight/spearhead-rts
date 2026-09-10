@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEARHEAD — WW2 Eastern Front RTS | Official Site</title>
+<meta name="description" content="WW2 Eastern Front RTS. Command a 1944 company from above, then drop into your ace tank. Real armor penetration, no health bars. Coming soon to Steam.">
+<link rel="canonical" href="https://supergreenlight.github.io/spearhead-rts/">
+<meta name="theme-color" content="#15130E">
+<meta name="author" content="Green Light Studio">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SPEARHEAD">
+<meta property="og:title" content="SPEARHEAD — WW2 Eastern Front RTS">
+<meta property="og:description" content="Command a 1944 company from above, then drop into your ace tank. Real armor penetration, no health bars. Coming soon to Steam.">
+<meta property="og:url" content="https://supergreenlight.github.io/spearhead-rts/">
+<meta property="og:image" content="https://supergreenlight.github.io/spearhead-rts/assets/og.jpg">
+<meta property="og:image:width" content="1232">
+<meta property="og:image:height" content="706">
+<meta property="og:image:alt" content="SPEARHEAD key art — 1944 Eastern Front">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@greenlight_std">
+<meta name="twitter:creator" content="@greenlight_std">
+<meta name="twitter:title" content="SPEARHEAD — WW2 Eastern Front RTS">
+<meta name="twitter:description" content="Command a 1944 company from above, then drop into your ace tank. Real armor penetration, no health bars.">
+<meta name="twitter:image" content="https://supergreenlight.github.io/spearhead-rts/assets/og.jpg">
+
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
+
+<style>
+:root{
+  --paper:#E7DFC7; --paper-2:#DED4B6; --paper-3:#D2C7A4;
+  --ink:#2B291F; --ink-2:#57513C; --ink-3:#7D7457;
+  --red:#A33626; --rule:#B8AD8C; --grain:.05;
+  --f-display:'Arial Narrow','Helvetica Neue Condensed',Impact,'Haettenschweiler',Arial,sans-serif;
+  --f-body:Georgia,'Iowan Old Style','Times New Roman',serif;
+  --f-util:ui-monospace,'Courier New',Courier,monospace;
+  --shell:1080px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#15130E; --paper-2:#1D1A13; --paper-3:#26221A;
+    --ink:#E6DEC6; --ink-2:#A9A084; --ink-3:#7E7660;
+    --red:#C85B44; --rule:#3B3527; --grain:.07;
+  }
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:60; opacity:var(--grain);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  mix-blend-mode:multiply;
+}
+@media (prefers-color-scheme:dark){ body::before{ mix-blend-mode:screen; } }
+
+img{ max-width:100%; height:auto; }
+a{ color:var(--red); }
+a:focus-visible,button:focus-visible{ outline:2px solid var(--red); outline-offset:3px; }
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:100; background:var(--paper); color:var(--ink);
+  padding:10px 16px; font-family:var(--f-util); font-size:13px;
+}
+.skip:focus{ left:8px; top:8px; }
+
+.shell{ max-width:var(--shell); margin:0 auto; padding:0 24px; }
+.eyebrow{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink-3); margin:0;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative; color:#E6DEC6; background:#0E0C08;
+  border-bottom:3px double #4A422F;
+}
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background-image:linear-gradient(180deg,rgba(10,8,5,.74) 0%,rgba(10,8,5,.60) 42%,rgba(10,8,5,.90) 100%),url("assets/hero.jpg");
+  background-size:cover; background-position:center;
+}
+.hero > *{ position:relative; }
+.hero .shell{ padding-top:22px; padding-bottom:64px; }
+.filebar{
+  display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap;
+  border-bottom:1px solid rgba(184,173,140,.34); padding-bottom:9px;
+}
+.filebar .eyebrow{ color:#B6AB8A; }
+.stamp{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:#E08A72; border:1.5px solid #C85B44; padding:3px 9px;
+}
+h1{ margin:44px 0 24px; text-align:center; }
+h1 img{ display:block; width:min(100%,470px); margin:0 auto; }
+.tagline{
+  text-align:center; font-size:clamp(20px,3.4vw,25px); line-height:1.35; color:#F1EAD4;
+  max-width:22ch; margin:0 auto 14px; text-wrap:balance;
+}
+.subline{
+  text-align:center; color:#BDB294; font-size:16px; max-width:52ch; margin:0 auto 30px;
+  text-wrap:balance;
+}
+.cta{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn{
+  font-family:var(--f-display); font-size:16px; letter-spacing:.14em; text-transform:uppercase;
+  text-decoration:none; padding:13px 26px; border:1.5px solid transparent; display:inline-block;
+  transition:background-color .15s,color .15s,border-color .15s;
+}
+.btn-primary{ background:#A33626; color:#F4EEDC; border-color:#A33626; }
+.btn-primary:hover{ background:#BE4331; border-color:#BE4331; }
+.btn-ghost{ color:#E6DEC6; border-color:rgba(230,222,198,.55); background:rgba(0,0,0,.18); }
+.btn-ghost:hover{ border-color:#E6DEC6; background:rgba(230,222,198,.12); }
+.hero .quicknav{
+  margin:34px 0 0; padding:0; list-style:none; display:flex; gap:8px 26px; flex-wrap:wrap;
+  justify-content:center; font-family:var(--f-util); font-size:11px; letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.hero .quicknav a{ color:#B6AB8A; text-decoration:none; border-bottom:1px solid transparent; }
+.hero .quicknav a:hover{ color:#E6DEC6; border-bottom-color:#C85B44; }
+
+/* ---------- sections ---------- */
+main section.shell{ padding-top:62px; }
+main section.shell:last-of-type{ padding-bottom:24px; }
+h2{
+  font-family:var(--f-display); font-weight:700; font-size:15px; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--ink); margin:0 0 20px; padding-bottom:7px;
+  border-bottom:1px solid var(--rule); display:flex; align-items:baseline; gap:12px;
+}
+h2 .n{ font-family:var(--f-util); font-size:11px; letter-spacing:.1em; color:var(--red); }
+p{ margin:0 0 15px; max-width:68ch; }
+p.lede{ font-size:19px; }
+p:last-child{ margin-bottom:0; }
+
+/* trailer */
+.video{
+  position:relative; aspect-ratio:16/9; background:#0E0C08; border:1px solid var(--rule);
+  overflow:hidden;
+}
+.video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video-btn{
+  position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; cursor:pointer;
+  background:none; display:block;
+}
+.video-btn img{ width:100%; height:100%; object-fit:cover; display:block; opacity:.82; transition:opacity .18s; }
+.video-btn:hover img{ opacity:1; }
+.play{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:84px; height:84px; border-radius:50%; background:rgba(163,54,38,.94);
+  display:grid; place-items:center; transition:transform .18s,background-color .18s;
+  box-shadow:0 6px 26px rgba(0,0,0,.5);
+}
+.video-btn:hover .play{ transform:translate(-50%,-50%) scale(1.07); background:#BE4331; }
+.play::after{
+  content:""; width:0; height:0; margin-left:6px;
+  border-left:26px solid #F4EEDC; border-top:16px solid transparent; border-bottom:16px solid transparent;
+}
+.video-cap{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); margin:10px 0 0;
+}
+
+/* pillars */
+.pillars{ list-style:none; margin:0; padding:0; display:grid; gap:22px; grid-template-columns:repeat(3,1fr); }
+.pillars li{ background:var(--paper-2); border:1px solid var(--rule); border-top:3px solid var(--red); padding:22px 22px 24px; }
+.pillars .mark{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--red);
+}
+.pillars h3{
+  font-family:var(--f-display); font-size:21px; letter-spacing:.05em; text-transform:uppercase;
+  margin:8px 0 9px; font-weight:700; line-height:1.15;
+}
+.pillars p{ margin:0; color:var(--ink-2); font-size:16px; }
+.detail{ margin-top:22px; display:grid; gap:18px; grid-template-columns:1fr 1fr; }
+.detail div{ border-left:3px solid var(--rule); padding:2px 0 2px 16px; }
+.detail h3{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-3); margin:0 0 5px; font-weight:400;
+}
+.detail p{ margin:0; font-size:16px; color:var(--ink-2); }
+
+/* screenshots */
+.grid{ display:grid; gap:16px; grid-template-columns:repeat(3,1fr); }
+.grid figure{ margin:0; }
+.grid button{
+  padding:0; border:1px solid var(--rule); background:var(--paper-2); cursor:zoom-in; display:block;
+  position:relative; line-height:0;
+}
+.grid button img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; transition:opacity .18s; }
+.grid button:hover img{ opacity:.85; }
+.grid figcaption,.grid .cap{
+  font-family:var(--f-util); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-3); line-height:1.5; padding:8px 2px 0; text-align:left;
+}
+
+/* facts */
+dl.facts{ margin:0; display:grid; grid-template-columns:minmax(170px,auto) 1fr; }
+dl.facts dt,dl.facts dd{ padding:10px 0; border-bottom:1px dotted var(--rule); margin:0; }
+dl.facts dt{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); padding-right:22px; align-self:center;
+}
+dl.facts dd{ font-variant-numeric:tabular-nums; }
+
+/* press + note */
+.note{ border-left:3px solid var(--red); padding:16px 20px; background:var(--paper-2); }
+.note p{ margin:0 0 12px; }
+.presslinks{ display:flex; gap:14px; flex-wrap:wrap; margin:0 0 20px; }
+.btn-ink{ background:var(--red); color:#F4EEDC; border-color:var(--red); }
+.btn-ink:hover{ filter:brightness(1.12); }
+.btn-outline{ color:var(--ink); border-color:var(--rule); text-transform:none; letter-spacing:.04em; font-family:var(--f-util); font-size:14px; }
+.btn-outline:hover{ border-color:var(--red); color:var(--red); }
+
+footer{
+  border-top:3px double var(--rule); padding:22px 0 40px; margin-top:62px;
+  font-family:var(--f-util); font-size:12px; color:var(--ink-3); letter-spacing:.08em;
+}
+footer .row{ display:flex; justify-content:space-between; gap:12px 24px; flex-wrap:wrap; align-items:baseline; }
+footer ul{ list-style:none; margin:0; padding:0; display:flex; gap:18px; flex-wrap:wrap; }
+footer a{ color:var(--ink-2); text-decoration:none; }
+footer a:hover{ color:var(--red); text-decoration:underline; }
+
+/* lightbox */
+.lb{
+  position:fixed; inset:0; z-index:80; background:rgba(8,7,4,.94); display:none;
+  padding:24px; place-items:center;
+}
+.lb[open]{ display:grid; }
+.lb figure{ margin:0; max-width:1500px; width:100%; }
+.lb img{ width:100%; height:auto; max-height:calc(100vh - 150px); object-fit:contain; display:block; }
+.lb figcaption{
+  font-family:var(--f-util); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:#B6AB8A; margin-top:12px; text-align:center;
+}
+.lb-close,.lb-nav{
+  position:absolute; background:rgba(0,0,0,.4); color:#E6DEC6; border:1px solid rgba(230,222,198,.4);
+  font-family:var(--f-util); cursor:pointer; line-height:1;
+}
+.lb-close{ top:16px; right:16px; width:44px; height:44px; font-size:20px; }
+.lb-nav{ top:50%; transform:translateY(-50%); width:44px; height:64px; font-size:22px; }
+.lb-prev{ left:12px; } .lb-next{ right:12px; }
+.lb-close:hover,.lb-nav:hover{ background:var(--red); border-color:var(--red); }
+
+@media (max-width:900px){
+  .pillars{ grid-template-columns:1fr; }
+  .grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:620px){
+  body{ font-size:16px; }
+  .shell{ padding:0 18px; }
+  .hero .shell{ padding-bottom:48px; }
+  h1{ margin:34px 0 20px; }
+  main section.shell{ padding-top:46px; }
+  .grid{ grid-template-columns:1fr; }
+  .detail{ grid-template-columns:1fr; }
+  dl.facts{ grid-template-columns:1fr; }
+  dl.facts dt{ border-bottom:0; padding:12px 0 0; }
+  dl.facts dd{ padding-top:2px; }
+  .btn{ font-size:15px; padding:12px 20px; }
+  .lb-nav{ width:38px; height:54px; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hero">
+  <div class="shell">
+    <div class="filebar">
+      <p class="eyebrow">Green Light Studio · Official Site</p>
+      <span class="stamp">Coming soon · Early Access</span>
+    </div>
+
+    <h1><img src="assets/wordmark.png" alt="SPEARHEAD" width="900" height="610" fetchpriority="high"></h1>
+
+    <p class="tagline">WW2 Eastern Front RTS. You are the commander, not the soldier.</p>
+    <p class="subline">Every shot is real armor penetration — plate, slope, angle, range. No health bars.</p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="https://store.steampowered.com/app/5183830/">Wishlist on Steam</a>
+      <a class="btn btn-ghost" href="#trailer">Watch Trailer</a>
+    </div>
+
+    <ul class="quicknav">
+      <li><a href="#trailer">Trailer</a></li>
+      <li><a href="#game">The game</a></li>
+      <li><a href="#screenshots">Screenshots</a></li>
+      <li><a href="#facts">Fact sheet</a></li>
+      <li><a href="#press">Press</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section id="trailer" class="shell">
+    <h2><span class="n">01</span> Announcement trailer</h2>
+    <div class="video" id="video">
+      <button class="video-btn" type="button" aria-label="Play the SPEARHEAD announcement trailer">
+        <img src="assets/trailer-poster.jpg" alt="" width="1280" height="722" decoding="async">
+        <span class="play" aria-hidden="true"></span>
+      </button>
+    </div>
+    <p class="video-cap">Announcement trailer · plays from YouTube <noscript>— <a href="https://www.youtube.com/watch?v=9evRCB7J2VA">watch on YouTube</a></noscript></p>
+  </section>
+
+  <section id="game" class="shell">
+    <h2><span class="n">02</span> The game</h2>
+    <p class="lede">Build a company from the Wehrmacht or the Red Army, commit it to the front, and break the enemy headquarters — or out-hold them on victory points when the clock runs out.</p>
+    <p>SPEARHEAD strips away unit micromanagement. You never drag a selection box across a squad. What you decide is <em>what to field, where to send it, and when</em> — and that is the whole game. Matches run five to ten minutes, so a decision is rewarded or punished quickly.</p>
+
+    <ul class="pillars">
+      <li>
+        <span class="mark">Armor</span>
+        <h3>Penetration, not hit points</h3>
+        <p>Survival is armor, not a health bar. Every shot resolves against plate thickness, slope, impact angle and range. A round that gets through breaks a track, kills the engine, jams the turret or sets off the ammunition rack. A T-34 that reaches a Tiger's flank wins that exchange.</p>
+      </li>
+      <li>
+        <span class="mark">Command</span>
+        <h3>The commander's seat</h3>
+        <p>Direct infantry, vehicles and armor from above, and call in artillery and air support. Combat units advance on their own, so your attention goes to composition, timing and ground. Battles escalate through Contact, Deployment, Engagement and Decisive Engagement, and a doctrine tree unlocks heavier equipment as they do.</p>
+      </li>
+      <li>
+        <span class="mark">Ace</span>
+        <h3>Then fight it yourself</h3>
+        <p>When the battle tips, drop into your ace tank and fight through the gunsight — sights, ammunition, reload, all by hand. The ace fires under the same penetration rules as everything else, in the same match the commander is running.</p>
+      </li>
+    </ul>
+
+    <div class="detail">
+      <div>
+        <h3>Weapons as they were</h3>
+        <p>Armor values, penetration, rate of fire and muzzle velocity come from historical specifications, not from a balance curve. German quality against Soviet quantity is the balance.</p>
+      </div>
+      <div>
+        <h3>Infantry lives by cover</h3>
+        <p>Squads use walls, trenches and buildings. Suppressed squads stay pinned, and killing a machine gunner only means the assistant takes the gun.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="screenshots" class="shell">
+    <h2><span class="n">03</span> Screenshots</h2>
+    <div class="grid" id="grid">
+      <figure>
+        <button type="button" data-full="assets/shots/shot_4.jpg" aria-label="Enlarge screenshot: Penetration readout">
+          <img src="assets/shots/thumb_4.jpg" width="760" height="428" loading="lazy" decoding="async"
+               alt="A 75 mm KwK 42 round strikes the front plate of a T-34/85 at a 7 degree impact angle and penetrates, with the result printed on screen.">
+        </button>
+        <figcaption>Penetration readout</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-full="assets/shots/shot_6.jpg" aria-label="Enlarge screenshot: Panzer ace, gunsight view">
+          <img src="assets/shots/thumb_6.jpg" width="760" height="428" loading="lazy" decoding="async"
+               alt="First-person view from inside a tank turret, aiming through the gunsight as a knocked-out vehicle burns across the field.">
+        </button>
+        <figcaption>Panzer ace · gunsight</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-full="assets/shots/shot_3.jpg" aria-label="Enlarge screenshot: Commander view and doctrine tree">
+          <img src="assets/shots/thumb_3.jpg" width="760" height="428" loading="lazy" decoding="async"
+               alt="Top-down commander view of the front with the doctrine panel open and the war stage bar showing Contact through Decisive Engagement.">
+        </button>
+        <figcaption>Commander view · doctrine</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-full="assets/shots/shot_5.jpg" aria-label="Enlarge screenshot: Infantry under fire">
+          <img src="assets/shots/thumb_5.jpg" width="760" height="428" loading="lazy" decoding="async"
+               alt="A machine gun team fires along a rail embankment while an advancing squad is destroyed in the open.">
+        </button>
+        <figcaption>Infantry under fire</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-full="assets/shots/shot_2.jpg" aria-label="Enlarge screenshot: Deck and order of battle">
+          <img src="assets/shots/thumb_2.jpg" width="760" height="428" loading="lazy" decoding="async"
+               alt="Deck screen showing a Tiger I loadout card with its historical weapon, armor and mobility data.">
+        </button>
+        <figcaption>Deck · order of battle</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-full="assets/shots/shot_1.jpg" aria-label="Enlarge screenshot: Battle setup">
+          <img src="assets/shots/thumb_1.jpg" width="760" height="428" loading="lazy" decoding="async"
+               alt="Battle setup screen with the German and Soviet sides, deck slots, ace seats and a map preview.">
+        </button>
+        <figcaption>Battle setup</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="facts" class="shell">
+    <h2><span class="n">04</span> Fact sheet</h2>
+    <dl class="facts">
+      <dt>Developer</dt><dd>Green Light Studio — solo developer, Seoul, South Korea</dd>
+      <dt>Platform</dt><dd>Windows (Steam)</dd>
+      <dt>Release</dt><dd>Coming soon — Early Access</dd>
+      <dt>Steam Next Fest</dt><dd>October 2026 (registered)</dd>
+      <dt>Genre</dt><dd>RTS · Real-time tactics · World War II, Eastern Front</dd>
+      <dt>Players</dt><dd>Single-player vs AI · Online 1v1 PvP · Spectating and replays</dd>
+      <dt>Match length</dt><dd>5–10 minutes</dd>
+      <dt>Languages</dt><dd>English, Korean — interface, full audio and subtitles</dd>
+      <dt>Engine</dt><dd>Unity 6 · URP</dd>
+      <dt>Steam AppID</dt><dd>5183830</dd>
+      <dt>Price</dt><dd>To be announced · premium. No free-to-play, gacha or pay-to-win.</dd>
+      <dt>Sister title</dt><dd>SPEARHEAD TACTICS (turn-based) — coming to Steam</dd>
+    </dl>
+  </section>
+
+  <section id="press" class="shell">
+    <h2><span class="n">05</span> Press &amp; publishers</h2>
+    <div class="presslinks">
+      <a class="btn btn-ink" href="press/SPEARHEAD_PressKit.html">Download press kit (HTML)</a>
+      <a class="btn btn-outline" href="mailto:y2k4658@gmail.com">y2k4658@gmail.com</a>
+    </div>
+    <div class="note">
+      <p><b>A playable build is available to press and publishers on request.</b> Write to the address above and say who you are and what you cover.</p>
+      <p>You are free to use the screenshots, trailer footage and logo in coverage, reviews and videos. Monetisation of gameplay video is permitted and no separate approval is required. For higher-resolution assets or additional footage, ask.</p>
+    </div>
+  </section>
+
+  <section id="transparency" class="shell">
+    <h2><span class="n">06</span> Transparency</h2>
+    <p>Some placeholder assets — character voice lines, the main theme, key art, some icons and sound effects — are currently AI-generated and disclosed on the Steam page. They are scheduled to be replaced with human-made work before 1.0. Code, 3D models, maps and design are the developer's own work.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="row">
+      <span>Green Light Studio · Seoul · © 2026</span>
+      <ul>
+        <li><a href="https://store.steampowered.com/app/5183830/">Steam</a></li>
+        <li><a href="https://www.youtube.com/watch?v=9evRCB7J2VA">Trailer</a></li>
+        <li><a href="https://x.com/greenlight_std">X</a></li>
+        <li><a href="https://discord.gg/gQHvqGJ3HZ">Discord</a></li>
+        <li><a href="https://ko-fi.com/greenlightstudio">Ko-fi</a></li>
+        <li><a href="mailto:y2k4658@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lb-close" type="button" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-nav lb-prev" type="button" id="lbPrev" aria-label="Previous screenshot">‹</button>
+  <button class="lb-nav lb-next" type="button" id="lbNext" aria-label="Next screenshot">›</button>
+  <figure>
+    <img id="lbImg" src="" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "SPEARHEAD",
+  "alternateName": "SPEARHEAD — 1944 Ostfront",
+  "url": "https://supergreenlight.github.io/spearhead-rts/",
+  "image": "https://supergreenlight.github.io/spearhead-rts/assets/og.jpg",
+  "description": "SPEARHEAD is a World War II Eastern Front real-time strategy game. Command a 1944 German or Soviet company from above, then drop into your ace tank and fight through the gunsight. Tank combat is resolved by real armor penetration — plate thickness, slope, impact angle and range — with no health bars.",
+  "genre": ["Real-time strategy", "Real-time tactics", "World War II", "Military simulation"],
+  "gamePlatform": ["PC", "Steam"],
+  "operatingSystem": "Windows",
+  "applicationCategory": "Game",
+  "playMode": ["SinglePlayer", "MultiPlayer"],
+  "inLanguage": ["en", "ko"],
+  "author": {
+    "@type": "Organization",
+    "name": "Green Light Studio",
+    "url": "https://supergreenlight.github.io/spearhead-rts/",
+    "email": "y2k4658@gmail.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR" },
+    "sameAs": ["https://x.com/greenlight_std", "https://ko-fi.com/greenlightstudio"]
+  },
+  "publisher": { "@type": "Organization", "name": "Green Light Studio" },
+  "trailer": {
+    "@type": "VideoObject",
+    "name": "SPEARHEAD — Announcement Trailer",
+    "description": "Announcement trailer for SPEARHEAD, a WW2 Eastern Front RTS.",
+    "thumbnailUrl": "https://supergreenlight.github.io/spearhead-rts/assets/og.jpg",
+    "uploadDate": "2026-08-29",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/9evRCB7J2VA",
+    "url": "https://www.youtube.com/watch?v=9evRCB7J2VA"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://store.steampowered.com/app/5183830/",
+    "availability": "https://schema.org/PreOrder",
+    "category": "Steam"
+  },
+  "sameAs": [
+    "https://store.steampowered.com/app/5183830/",
+    "https://x.com/greenlight_std",
+    "https://discord.gg/gQHvqGJ3HZ",
+    "https://www.youtube.com/watch?v=9evRCB7J2VA"
+  ]
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- trailer facade ---- */
+  var video = document.getElementById('video');
+  var vbtn = video && video.querySelector('.video-btn');
+  if (vbtn) {
+    vbtn.addEventListener('click', function(){
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/9evRCB7J2VA?autoplay=1&rel=0';
+      f.title = 'SPEARHEAD announcement trailer';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      video.innerHTML = '';
+      video.appendChild(f);
+      f.focus();
+    });
+  }
+
+  /* ---- lightbox over the static gallery ---- */
+  var grid = document.getElementById('grid');
+  var buttons = Array.prototype.slice.call(grid.querySelectorAll('button[data-full]'));
+  var shots = buttons.map(function(b){
+    return {
+      full: b.dataset.full,
+      alt: b.querySelector('img').alt,
+      cap: b.parentNode.querySelector('figcaption').textContent
+    };
+  });
+
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
+      lbCap = document.getElementById('lbCap'), lbClose = document.getElementById('lbClose'),
+      lbPrev = document.getElementById('lbPrev'), lbNext = document.getElementById('lbNext'),
+      cur = 0, opener = null;
+
+  function show(i){
+    cur = (i + shots.length) % shots.length;
+    var s = shots[cur];
+    lbImg.src = s.full;
+    lbImg.alt = s.alt;
+    lbCap.textContent = s.cap + '  ·  ' + (cur + 1) + ' / ' + shots.length;
+  }
+  function open(i, from){
+    opener = from || null;
+    show(i);
+    lb.setAttribute('open', '');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+  function close(){
+    lb.removeAttribute('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+    if (opener) { opener.focus(); opener = null; }
+  }
+
+  grid.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-full]');
+    if (b) open(buttons.indexOf(b), b);
+  });
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', function(){ show(cur - 1); });
+  lbNext.addEventListener('click', function(){ show(cur + 1); });
+  lb.addEventListener('click', function(e){ if (e.target === lb || e.target.tagName === 'FIGURE') close(); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.hasAttribute('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === 'ArrowRight') show(cur + 1);
+    else if (e.key === 'Tab') {
+      var f = [lbClose, lbPrev, lbNext];
+      var idx = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(idx + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
